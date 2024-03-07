@@ -7,7 +7,7 @@ use PrysmianClub\Plugin\FieldGroup\BaseFieldGroup;
 use PrysmianClub\Plugin\Taxonomy\LearningCategoryTaxonomy;
 use PrysmianClub\Plugin\Taxonomy\ResourceCategoryTaxonomy;
 
-class CategoryCssIconFieldGroup extends BaseFieldGroup
+class CategoryFieldGroup extends BaseFieldGroup
 {
     protected const ARGS = array(
         'key' => 'group_65e3083d10014',

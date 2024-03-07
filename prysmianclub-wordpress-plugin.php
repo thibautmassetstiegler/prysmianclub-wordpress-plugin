@@ -13,11 +13,12 @@ define('PRYSMIANCLUB_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 require PRYSMIANCLUB_PLUGIN_PATH . 'autoload.php';
 
-use PrysmianClub\Plugin\PostType\{LearningPostType, ResourcePostType};
+use PrysmianClub\Plugin\PostType\{EventPostType, LearningPostType, ResourcePostType};
 use PrysmianClub\Plugin\Taxonomy\{LearningCategoryTaxonomy, ResourceCategoryTaxonomy};
-use PrysmianClub\Plugin\FieldGroup\{CategoryCssIconFieldGroup, ResourceFileFieldGroup};
+use PrysmianClub\Plugin\FieldGroup\{CategoryFieldGroup, EventFieldGroup, ResourceFieldGroup};
 
 // Post Types
+$event_post_type = new EventPostType;
 $learning_post_type = new LearningPostType;
 $resource_post_type = new ResourcePostType;
 
@@ -26,10 +27,12 @@ $learning_category_taxonomy = new LearningCategoryTaxonomy;
 $resource_category_taxonomy = new ResourceCategoryTaxonomy;
 
 // Field groups
-new CategoryCssIconFieldGroup;
-new ResourceFileFieldGroup;
+new CategoryFieldGroup;
+new EventFieldGroup;
+new ResourceFieldGroup;
 
-register_activation_hook(PRYSMIANCLUB_PLUGIN_PATH, function() use ($learning_post_type, $resource_post_type) {
+register_activation_hook(PRYSMIANCLUB_PLUGIN_PATH, function() use ($event_post_type, $learning_post_type, $resource_post_type) {
+    $event_post_type->register();
     $learning_post_type->register();
     $resource_post_type->register();
 
@@ -40,6 +43,7 @@ register_activation_hook(PRYSMIANCLUB_PLUGIN_PATH, function() use ($learning_pos
 });
 
 register_deactivation_hook(PRYSMIANCLUB_PLUGIN_PATH, function() use ($learning_post_type, $resource_post_type) {
+    $event_post_type->unregister();
     $learning_post_type->unregister();
     $resource_post_type->unregister();
 

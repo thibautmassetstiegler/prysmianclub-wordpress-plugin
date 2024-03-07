@@ -6,7 +6,7 @@ use PrysmianClub\Plugin\FieldGroup\BaseFieldGroup;
 
 use PrysmianClub\Plugin\PostType\ResourcePostType;
 
-class ResourceFileFieldGroup extends BaseFieldGroup
+class ResourceFieldGroup extends BaseFieldGroup
 {
     protected const ARGS = array(
         'key' => 'group_65e2256ca129c',
