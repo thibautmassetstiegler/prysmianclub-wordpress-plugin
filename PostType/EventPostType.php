@@ -13,6 +13,7 @@ class EventPostType extends BasePostType
         'label'         => 'Événements',
         'menu_icon'     => 'dashicons-calendar',
         'public'        => true,
+        'rest_base'     => 'events',
         'show_in_rest'  => true,
         'supports'      => array('title', 'editor', 'thumbnail'),
     );

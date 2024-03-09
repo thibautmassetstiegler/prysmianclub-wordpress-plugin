@@ -2,14 +2,14 @@
 
 namespace PrysmianClub\Plugin\Taxonomy;
 
-use PrysmianClub\Plugin\PostType\LearningPostType;
+use PrysmianClub\Plugin\PostType\TrainingPostType;
 use PrysmianClub\Plugin\Taxonomy\BaseTaxonomy;
 
-class LearningCategoryTaxonomy extends BaseTaxonomy
+class TrainingCategoryTaxonomy extends BaseTaxonomy
 {
-    public const NAME = 'learning_category';
+    public const NAME = 'training_category';
 
-    public static $postTypeName = LearningPostType::NAME;
+    public static $postTypeName = TrainingPostType::NAME;
 
     protected const ARGS = array(
         'label' => 'Catégories',

@@ -13,6 +13,7 @@ class ResourcePostType extends BasePostType
         'label'         => 'Ressources',
         'menu_icon'     => 'dashicons-download',
         'public'        => true,
+        'rest_base'     => 'resources',
         'show_in_rest'  => true,
         'supports'      => array('title', 'editor', 'thumbnail'),
     );

@@ -4,8 +4,7 @@ namespace PrysmianClub\Plugin\FieldGroup;
 
 use PrysmianClub\Plugin\FieldGroup\BaseFieldGroup;
 
-use PrysmianClub\Plugin\Taxonomy\LearningCategoryTaxonomy;
-use PrysmianClub\Plugin\Taxonomy\ResourceCategoryTaxonomy;
+use PrysmianClub\Plugin\Taxonomy\{ResourceCategoryTaxonomy, TrainingCategoryTaxonomy};
 
 class CategoryFieldGroup extends BaseFieldGroup
 {
@@ -59,14 +58,14 @@ class CategoryFieldGroup extends BaseFieldGroup
                 array(
                     'param' => 'taxonomy',
                     'operator' => '==',
-                    'value' => LearningCategoryTaxonomy::NAME,
+                    'value' => ResourceCategoryTaxonomy::NAME,
                 ),
             ),
             array(
                 array(
                     'param' => 'taxonomy',
                     'operator' => '==',
-                    'value' => ResourceCategoryTaxonomy::NAME,
+                    'value' => TrainingCategoryTaxonomy::NAME,
                 ),
             ),
         );
