@@ -39,6 +39,7 @@ class ResourceCategoryTaxonomy extends BaseTaxonomy
             'archives' => 'Toutes les catégories',
          ),
         'public' => true,
+        'rest_base' => 'resource_categories',
         'show_admin_column' => true,
         'show_in_rest' => true,
     );
