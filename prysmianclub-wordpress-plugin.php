@@ -16,6 +16,7 @@ require PRYSMIANCLUB_PLUGIN_PATH . 'autoload.php';
 use PrysmianClub\Plugin\PostType\{EventPostType, ResourcePostType, TrainingPostType,};
 use PrysmianClub\Plugin\Taxonomy\{ResourceCategoryTaxonomy, TrainingCategoryTaxonomy};
 use PrysmianClub\Plugin\ACFFieldGroup\{CategoryFieldGroup, EventFieldGroup, ResourceFieldGroup};
+use PrysmianClub\Plugin\UMField\PreferencesField;
 
 // Post Types
 $event_post_type = new EventPostType;
@@ -26,10 +27,13 @@ $resource_post_type = new ResourcePostType;
 $resource_category_taxonomy = new ResourceCategoryTaxonomy;
 $training_category_taxonomy = new TrainingCategoryTaxonomy;
 
-// Field groups
+// ACF Field groups
 new CategoryFieldGroup;
 new EventFieldGroup;
 new ResourceFieldGroup;
+
+// UM Predefined Fields
+new PreferencesField;
 
 register_activation_hook(PRYSMIANCLUB_PLUGIN_PATH, function() use (
     $event_post_type,

@@ -13,3 +13,6 @@ require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/BaseFieldGroup.php';
 require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/CategoryFieldGroup.php';
 require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/EventFieldGroup.php';
 require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/ResourceFieldGroup.php';
+
+require PRYSMIANCLUB_PLUGIN_PATH . 'UMField/BaseField.php';
+require PRYSMIANCLUB_PLUGIN_PATH . 'UMField/PreferencesField.php';
