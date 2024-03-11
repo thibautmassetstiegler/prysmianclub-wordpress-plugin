@@ -15,7 +15,7 @@ require PRYSMIANCLUB_PLUGIN_PATH . 'autoload.php';
 
 use PrysmianClub\Plugin\PostType\{EventPostType, ResourcePostType, TrainingPostType,};
 use PrysmianClub\Plugin\Taxonomy\{ResourceCategoryTaxonomy, TrainingCategoryTaxonomy};
-use PrysmianClub\Plugin\FieldGroup\{CategoryFieldGroup, EventFieldGroup, ResourceFieldGroup};
+use PrysmianClub\Plugin\ACFFieldGroup\{CategoryFieldGroup, EventFieldGroup, ResourceFieldGroup};
 
 // Post Types
 $event_post_type = new EventPostType;

@@ -1,8 +1,8 @@
 <?php
 
-namespace PrysmianClub\Plugin\FieldGroup;
+namespace PrysmianClub\Plugin\ACFFieldGroup;
 
-use PrysmianClub\Plugin\FieldGroup\BaseFieldGroup;
+use PrysmianClub\Plugin\ACFFieldGroup\BaseFieldGroup;
 
 use PrysmianClub\Plugin\PostType\EventPostType;
 

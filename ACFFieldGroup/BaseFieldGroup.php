@@ -1,6 +1,6 @@
 <?php
 
-namespace PrysmianClub\Plugin\FieldGroup;
+namespace PrysmianClub\Plugin\ACFFieldGroup;
 
 class BaseFieldGroup
 {

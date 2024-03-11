@@ -9,7 +9,7 @@ require PRYSMIANCLUB_PLUGIN_PATH . 'Taxonomy/BaseTaxonomy.php';
 require PRYSMIANCLUB_PLUGIN_PATH . 'Taxonomy/TrainingCategoryTaxonomy.php';
 require PRYSMIANCLUB_PLUGIN_PATH . 'Taxonomy/ResourceCategoryTaxonomy.php';
 
-require PRYSMIANCLUB_PLUGIN_PATH . 'FieldGroup/BaseFieldGroup.php';
-require PRYSMIANCLUB_PLUGIN_PATH . 'FieldGroup/CategoryFieldGroup.php';
-require PRYSMIANCLUB_PLUGIN_PATH . 'FieldGroup/EventFieldGroup.php';
-require PRYSMIANCLUB_PLUGIN_PATH . 'FieldGroup/ResourceFieldGroup.php';
+require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/BaseFieldGroup.php';
+require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/CategoryFieldGroup.php';
+require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/EventFieldGroup.php';
+require PRYSMIANCLUB_PLUGIN_PATH . 'ACFFieldGroup/ResourceFieldGroup.php';
