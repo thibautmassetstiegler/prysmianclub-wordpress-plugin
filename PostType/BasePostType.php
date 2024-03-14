@@ -6,7 +6,7 @@ class BasePostType
 {
     public function __construct()
     {
-        add_action('init', array($this, 'register'));
+        add_action('init', array($this, 'register'), 0);
     }
 
     public function register()

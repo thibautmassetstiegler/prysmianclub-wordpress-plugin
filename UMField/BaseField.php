@@ -10,7 +10,7 @@ class BaseField
 
         if (method_exists($this, 'render')) {
             add_filter(
-                sprintf("um_%s_form_edit_field", static::NAME),
+                sprintf('um_%s_form_edit_field', static::NAME),
                 array($this, 'render'),
                 10,
             2);

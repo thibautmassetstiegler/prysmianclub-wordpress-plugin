@@ -8,6 +8,11 @@ class PreferencesField extends BaseField
 {
     protected const NAME = 'preferences';
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public static function getArgs()
     {
         return array(
@@ -22,140 +27,83 @@ class PreferencesField extends BaseField
         );
     }
 
-    private static function getOptions()
+    protected static function getOptions()
     {
-        $categories = get_categories();
+        return array_merge(
+            array_keys(self::getTerms('category')),
+            array_keys(self::getTerms('post_tag')),
+            array_keys(self::getTerms(ResourceCategoryTaxonomy::NAME)),
+            array_keys(self::getTerms(ResourceCategoryTaxonomy::NAME)),
+        );
+    }
 
-        return array_map( function($category) {
-            return $category->name;
-        }, $categories );
+    protected static function getTerms($taxonomy)
+    {
+        return get_terms(array(
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+            'fields' => 'id=>name',
+        ));
     }
 
     public function render($output, $mode)
     {
-        $post_categories = get_terms(array(
-            'taxonomy' => 'category',
-            'hide_empty' => false,
-        ));
-
-        $post_tags = get_terms(array(
-            'taxonomy' => 'post_tag',
-            'hide_empty' => false,
-        ));
-
-        $resource_categories = get_terms(array(
-            'taxonomy' => ResourceCategoryTaxonomy::NAME,
-            'hide_empty' => false,
-        ));
-
-        $training_categories = get_terms(array(
-            'taxonomy' => TrainingCategoryTaxonomy::NAME,
-            'hide_empty' => false,
-        ));
-
-        echo '<pre>'; var_dump($_POST); echo '</pre>';
+        $post_categories = self::getTerms('category');
+        $post_tags = self::getTerms('post_tag');
+        $resource_categories = self::getTerms(ResourceCategoryTaxonomy::NAME);
+        $training_categories = self::getTerms(TrainingCategoryTaxonomy::NAME);
 
         ob_start();
         ?>
-        <div class="row">
-            <div class="col-3">
-                Actus
-                <?php
-                foreach($post_categories as $term):
-                    $attr_id = "preferences_category_" . $term->term_id;
-                    ?>
-                    <p class="form-check">
-                        <input
-                            class="form-check-input"
-                            id="<?php echo esc_attr($attr_id); ?>"
-                            type="checkbox"
-                            name="preferences[]"
-                            value="<?php echo $term->term_id; ?>"
-                            <?php if (in_array($term->term_id, $_POST['preferences'])): ?>
-                                checked
-                            <?php endif; ?>
-                        />
-                        <label
-                            class="form-check-label"
-                            for="<?php echo esc_attr($attr_id); ?>"
-                        ><?php echo $term->name; ?></label>
-                    </p>
-                <?php endforeach; ?>
+        <div class="row preferences mt-5">
+            <div class="col-12">
+                <p class="title-1">Vos <span class="fw-bold">préférences</span></p>
+                <p><span class="fw-bold">Cochez les sujets qui vous intéressent</span> afin d&apos;avoir accès à des contenus sélectionnés selon vos préférences.</p>
             </div>
             <div class="col-3">
-                Centres d'intérêts
-                <?php
-                foreach($post_tags as $term):
-                    $attr_id = "preferences_post_tag_" . $term->term_id;
-                    ?>
-                    <p class="form-check">
-                        <input
-                            class="form-check-input"
-                            id="<?php echo esc_attr($attr_id); ?>"
-                            type="checkbox"
-                            name="preferences[]"
-                            value="<?php echo $term->term_id; ?>"
-                            <?php if (in_array($term->term_id, $_POST['preferences'])): ?>
-                                checked
-                            <?php endif; ?>
-                        />
-                        <label
-                            class="form-check-label"
-                            for="<?php echo esc_attr($attr_id); ?>"
-                        ><?php echo $term->name; ?></label>
-                    </p>
-                <?php endforeach; ?>
+                <span class="preferences__title">Actus</span>
+                <?php $this->renderCheckboxes($post_categories); ?>
             </div>
             <div class="col-3">
-                Ressources
-                <?php
-                foreach($resource_categories as $term):
-                    $attr_id = "preferences_resource_category_" . $term->term_id;
-                    ?>
-                    <p class="form-check">
-                        <input
-                            class="form-check-input"
-                            id="<?php echo esc_attr($attr_id); ?>"
-                            type="checkbox"
-                            name="preferences[]"
-                            value="<?php echo $term->term_id; ?>"
-                            <?php if (in_array($term->term_id, $_POST['preferences'])): ?>
-                                checked
-                            <?php endif; ?>
-                        />
-                        <label
-                            class="form-check-label"
-                            for="<?php echo esc_attr($attr_id); ?>"
-                        ><?php echo $term->name; ?></label>
-                    </p>
-                <?php endforeach; ?>
+                <span class="preferences__title">Centres d'intérêts</span>
+                <?php $this->renderCheckboxes($post_tags); ?>
             </div>
             <div class="col-3">
-                Formations
-                <?php
-                foreach($training_categories as $term):
-                    $attr_id = "preferences_training_category_" . $term->term_id;
-                    ?>
-                    <p class="form-check">
-                        <input
-                            class="form-check-input"
-                            id="<?php echo esc_attr($attr_id); ?>"
-                            type="checkbox"
-                            name="preferences[]"
-                            value="<?php echo $term->term_id; ?>"
-                            <?php if (in_array($term->term_id, $_POST['preferences'])): ?>
-                                checked
-                            <?php endif; ?>
-                        />
-                        <label
-                            class="form-check-label"
-                            for="<?php echo esc_attr($attr_id); ?>"
-                        ><?php echo $term->name; ?></label>
-                    </p>
-                <?php endforeach; ?>
+                <span class="preferences__title">Centres d'intérêts</span>
+                <?php $this->renderCheckboxes($resource_categories); ?>
+            </div>
+            <div class="col-3">
+                <span class="preferences__title">Formations</span>
+                <?php $this->renderCheckboxes($training_categories); ?>
             </div>
         </div>
         <?php
+
         return ob_get_clean();
+    }
+
+    private function renderCheckboxes($terms)
+    {
+        foreach($terms as $id => $name):
+            $attr_id = "preferences_" . $id;
+            ?>
+            <p class="form-check mb-2 fw-medium">
+                <input
+                    class="form-check-input"
+                    id="<?php echo esc_attr($attr_id); ?>"
+                    type="checkbox"
+                    name="<?php echo esc_attr(static::NAME); ?>[]"
+                    value="<?php echo $id; ?>"
+                    <?php if (! empty($_POST) && in_array($id, $_POST[static::NAME])): ?>
+                        checked
+                    <?php endif; ?>
+                />
+                <label
+                    class="form-check-label"
+                    for="<?php echo esc_attr($attr_id); ?>"
+                ><?php echo $name; ?></label>
+            </p>
+        <?php
+        endforeach;
     }
 }
