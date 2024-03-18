@@ -33,7 +33,7 @@ class PreferencesField extends BaseField
             array_keys(self::getTerms('category')),
             array_keys(self::getTerms('post_tag')),
             array_keys(self::getTerms(ResourceCategoryTaxonomy::NAME)),
-            array_keys(self::getTerms(ResourceCategoryTaxonomy::NAME)),
+            array_keys(self::getTerms(TrainingCategoryTaxonomy::NAME)),
         );
     }
 
@@ -53,6 +53,8 @@ class PreferencesField extends BaseField
         $resource_categories = self::getTerms(ResourceCategoryTaxonomy::NAME);
         $training_categories = self::getTerms(TrainingCategoryTaxonomy::NAME);
 
+        $selected_ids = $this->getSelectedIds($mode);
+
         ob_start();
         ?>
         <div class="row preferences mt-5">
@@ -62,19 +64,19 @@ class PreferencesField extends BaseField
             </div>
             <div class="col-3">
                 <span class="preferences__title">Actus</span>
-                <?php $this->renderCheckboxes($post_categories); ?>
+                <?php $this->renderCheckboxes($post_categories, $selected_ids); ?>
             </div>
             <div class="col-3">
                 <span class="preferences__title">Centres d'intérêts</span>
-                <?php $this->renderCheckboxes($post_tags); ?>
+                <?php $this->renderCheckboxes($post_tags, $selected_ids); ?>
             </div>
             <div class="col-3">
                 <span class="preferences__title">Centres d'intérêts</span>
-                <?php $this->renderCheckboxes($resource_categories); ?>
+                <?php $this->renderCheckboxes($resource_categories, $selected_ids); ?>
             </div>
             <div class="col-3">
                 <span class="preferences__title">Formations</span>
-                <?php $this->renderCheckboxes($training_categories); ?>
+                <?php $this->renderCheckboxes($training_categories, $selected_ids); ?>
             </div>
         </div>
         <?php
@@ -82,7 +84,7 @@ class PreferencesField extends BaseField
         return ob_get_clean();
     }
 
-    private function renderCheckboxes($terms)
+    private function renderCheckboxes($terms, $selected_ids)
     {
         foreach($terms as $id => $name):
             $attr_id = "preferences_" . $id;
@@ -94,7 +96,7 @@ class PreferencesField extends BaseField
                     type="checkbox"
                     name="<?php echo esc_attr(static::NAME); ?>[]"
                     value="<?php echo $id; ?>"
-                    <?php if (! empty($_POST) && in_array($id, $_POST[static::NAME])): ?>
+                    <?php if (in_array($id, $selected_ids)): ?>
                         checked
                     <?php endif; ?>
                 />
@@ -105,5 +107,26 @@ class PreferencesField extends BaseField
             </p>
         <?php
         endforeach;
+    }
+
+    private function getSelectedIds($mode)
+    {
+        $selected_ids = array();
+
+        if ($mode === 'register' && ! empty($_POST[static::NAME])) {
+            $selected_ids = $_POST[static::NAME];
+        } else if ($mode === 'profile') {
+            if (! empty($_POST[static::NAME])) {
+                $selected_ids = $_POST[static::NAME];
+            } else {
+                $selected_ids = get_user_meta(wp_get_current_user()->ID, static::NAME, true);
+            }
+        }
+
+        if (! is_array($selected_ids)) {
+            $selected_ids = array();
+        }
+
+        return $selected_ids;
     }
 }
